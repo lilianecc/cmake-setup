@@ -1,4 +1,4 @@
-#Code for setup cmake
+<h1>Code for setup cmake</h1>
 Here is an example on how to setup a folder called multiply and a gtest folder with it's own CMakeLists.txt
 Overall it will be run by a CMakeLists.txt outside in the CMAKE-SETUP folder
 
