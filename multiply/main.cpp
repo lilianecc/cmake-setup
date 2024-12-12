@@ -24,9 +24,6 @@ int main()
     int DPRAM_SIZE=(DPRAM_OFFSET+1)*4;//1048576
     dpramBytes=new char[DPRAM_SIZE]; //0x0000023edf9b1040
     memset(dpramBytes, 0, DPRAM_SIZE);
-    char greet[1048576];
-    memset(greet, 0, 1048576);
-    
     int base_addr=atoi(dpramBytes);//(uint_32)dpramBytes
     uint32_t IO_BASE_addr=base_addr;
     uint32_t* MSG_r_READ_PTR;
