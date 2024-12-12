@@ -31,3 +31,11 @@ TEST_F(MultiplyTests, testNullPtr)
     bool tempbool = true;
     EXPECT_TRUE(tempbool);
 }
+TEST_F(MultiplyTests, PrivateVarTest)
+{
+    obj.multiplier(2, 3);
+    int result = obj.x;
+    // EXPECT_CALL(testPtr, 1);
+    EXPECT_EQ(result, 2);
+    EXPECT_EQ(1057,0x421);
+}

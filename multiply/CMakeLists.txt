@@ -2,6 +2,14 @@
 #target_include_directories(multiply PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 cmake_minimum_required(VERSION 3.18)
 project(multiplyProject)
+enable_testing()
+
+set(GTEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../googletest-1.14.x/googletest)
+message(STATUS "=================== ${CMAKE_CURRENT_SOURCE_DIR}")
+set(GTEST_INCLUDE_DIRECTORIES ${GTEST_DIR}/include ${GTEST_DIR}/src ${GTEST_DIR})
+add_library(gtest_mainFUN ${GTEST_DIR}/src/gtest-all.cc ${GTEST_DIR}/src/gtest_main.cc)
+include_directories(src ${GTEST_INCLUDE_DIRECTORIES})
+
 
 message(STATUS "====MULTIPLY build")
 
@@ -23,5 +31,5 @@ target_link_libraries(multiplyProject
   #GTest::gtest_main #this works
   multiplyLib
   additionLib
-#   ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/multiply.lib
+  #   ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/multiply.lib
 )

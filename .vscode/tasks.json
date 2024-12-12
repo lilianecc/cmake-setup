@@ -7,10 +7,11 @@
             "command": "C:\\Program Files\\Mingw64-8.1.0\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-g",
+                "-g",//-g to generate debugging info so that u can use gdb
                 "${workspaceFolder}\\multiply\\*.cpp",
+                "-I${workspaceFolder}\\googletest-1.14.x\\googletest\\include",//to include gtest stuff  
                 "-o",
-                "${workspaceFolder}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}\\multiply\\build\\Debug\\multiplyProject.exe"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
