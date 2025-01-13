@@ -25,7 +25,7 @@ int main()
     msg[0] = tempBits >> 8;
     msg[1] = tempBits & 0xFF;
     // command word should be msg[1] and msg[2] since each index contains 8 bits
-    msgInshort[0] = tempBits;
+    msgInshort[0] = tempBits; //3806 for 1,1, 22, 30
     // test union
     bitsetConverter converter;
     Bitstruct bitTemp;
@@ -34,11 +34,11 @@ int main()
     bitTemp.subAddress = 22;
     bitTemp.wordCount = 30;
     converter.bitstruct = bitTemp;
-    std::cout << "bit int 16: " << converter.bitInt16 << std::endl;
+    std::cout << "bit int 16: " << converter.bitInt16 << std::endl;//shows up as 5665
     // reverse the union
     bitsetConverter converterRev;
     converterRev.bitInt16 = 3806;
-    std::cout << converterRev.bitstruct.subAddress << std::endl;
+    std::cout << converterRev.bitstruct.subAddress << std::endl;//30, 0, 14, 0
     
     // testClass.Get_Msg(msgNum, arr);
     // std::cout << "main finished!" << 12345 << std::endl;
