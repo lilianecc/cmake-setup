@@ -1,13 +1,19 @@
 #ifndef BITSTRUCT_H
 #define BITSTRUCT_H
-#include<iostream>
-
+#include <iostream>
 struct Bitstruct
 {
-    unsigned char remoteAddress : 5;
-    unsigned char rOrT : 1;
-    unsigned char subAddress : 5;
-    unsigned char wordCount : 5;
+    uint16_t remoteAddress : 5;
+    uint16_t rOrT : 1;
+    uint16_t subAddress : 5;
+    uint16_t wordCount : 5;
+};
+struct RevBitStruct
+{
+    uint16_t wordCount : 5;
+    uint16_t subAddress : 5;
+    uint16_t rOrT : 1;
+    uint16_t remoteAddress : 5;
 };
 typedef union bitsetConverter
 {
@@ -15,4 +21,9 @@ typedef union bitsetConverter
     uint16_t bitInt16;
 } bitsetConverter;
 
+typedef union revBitConverter
+{
+    RevBitStruct revBitStruct;
+    uint16_t revbitInt;
+};
 #endif
