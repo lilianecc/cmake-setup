@@ -3,7 +3,7 @@
 #include "arh.h"
 #include "bitstruct.h"
 #include "bitTesting.h"
-
+#include <bitset>
 int main()
 {
     // Multiply testClass;
@@ -13,7 +13,9 @@ int main()
     // unsigned short arr[30] = {0};
     // unsigned short *arrPtr;
     BitTesting bitTesting;
-    // test on msg
+    unionHasStructInstruct unionhasSoManyStruct;
+    
+    // tes  t on msg
     unsigned char *msg = (unsigned char *)malloc(62);
     unsigned short *msgInshort = (unsigned short *)malloc(31); // use uint16_t is better
     int remoteAdd = 29;
@@ -37,7 +39,7 @@ int main()
     bitTemp.subAddress = 1;
     bitTemp.wordCount = 30;
     converter.bitstruct = bitTemp;
-    std::cout << "bit int 16: " << converter.bitInt16 << std::endl; // shows up as 5665
+    std::cout << "bit int 16: " << converter.bitInt16 << std::endl; // shows up as 59454
     // use the int to get bitstruct
     bitsetConverter converterRev;
     converterRev.bitInt16 = 61533;
@@ -45,13 +47,26 @@ int main()
     // reverse the struct
     revBitConverter revConv;
     RevBitStruct revBitStruct;
-    revBitStruct.remoteAddress = 29;
-    revBitStruct.rOrT = 0;
-    revBitStruct.subAddress = 1;
-    revBitStruct.wordCount = 30;
+    revBitStruct.RevRemoteAddress = 29;
+    revBitStruct.RevROrT = 0;
+    revBitStruct.RevSubAddress = 1;
+    revBitStruct.RevWordCount = 30;
     revConv.revBitStruct = revBitStruct;
     std::cout << "gonna print the same as tempBits: " << revConv.revbitInt << std::endl;//still 59454
-
+    //test bit representation
+    std::string airplane="F-35A     ";
+    for(char c:airplane){
+        std::bitset<8> bitRep(c);
+        std::cout<<bitRep<<","<<std::endl;
+    };
+    TMsgs Tmsgs;
+    //Tmsgs.raw[]={0};
+    memset(Tmsgs.raw,0 , sizeof(Tmsgs));//cant use memset to initialize to other number, like 2
+    structInsideStruct tempStruct;
+    // tempStruct={
+    //     123,
+    //     {1234}
+    // };
     //test checksum
     uint16_t TMsg[30][30] = {{0}, {0}};
     TMsg[0][0] = 1057;
@@ -65,6 +80,12 @@ int main()
     // testClass.Get_Msg(msgNum, arr);
     // std::cout << "main finished!" << 12345 << std::endl;
     // std::cout << "addition result: " << result << std::endl;
+
+
+    T1Msgs t1msg;
+    T2Msgs t2msg;
+    //need to update msg based on input msg number
+
 
     return 0;
 }
