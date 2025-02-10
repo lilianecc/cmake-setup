@@ -6,11 +6,12 @@ using namespace std;
 // Multiply::Multiply()
 // {
 // }
+Multiply::Multiply(){};
 void Multiply::multiplier(int a, int b)
 {
     result = a * b;
-    int* temp=testPtr(a);
-    x = a;
+    int *temp = testPtr(a);
+    localX = a;
 }
 
 int *Multiply::testPtr(int a)
@@ -47,3 +48,5 @@ bool Multiply::Get_Msg(unsigned int msgNum, unsigned short words[30])
     std::cout << "test end!" << std::endl;
     return true;
 };
+
+int Multiply::getXValue() { return localX; };

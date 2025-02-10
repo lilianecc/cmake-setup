@@ -4,76 +4,42 @@
 #include "bitstruct.h"
 #include "bitTesting.h"
 #include <bitset>
+#include "multiply.h"
+#include "msgTest.h"
+#include "singletonTest.h"
+#include "rMsgStruct.h"
+#include "chronoTest.h"
 int main()
 {
     // Multiply testClass;
     // testClass.multiplier(3, 4);
-    // int result = addition(1, 2);
-    // int *testPtr = testClass.testPtr(1);
-    // unsigned short arr[30] = {0};
-    // unsigned short *arrPtr;
-    BitTesting bitTesting;
-    unionHasStructInstruct unionhasSoManyStruct;
+    //  int result = addition(1, 2);
+    //  int *testPtr = testClass.testPtr(1);
+    //  unsigned short arr[30] = {0};
+    //  unsigned short *arrPtr;
+    printAllChrono();
+
+    // test singleton
+    singletonTest &s1 = singletonTest::getInstance();
+    singletonTest &s2 = singletonTest::getInstance();
+    s1.multiplier(3, 4);
+    std::cout << "testing class member value: " << s2.getLocalValue() << std::endl;
+
     
-    // tes  t on msg
-    unsigned char *msg = (unsigned char *)malloc(62);
+
+    // test on bit shift and message
+    // msgCreateAndShift();
+
+    // test checksum
+    BitTesting bitTesting;
     unsigned short *msgInshort = (unsigned short *)malloc(31); // use uint16_t is better
-    int remoteAdd = 29;
-    int rOrT = 0;
-    int msgNum = 1;
-    int wordCount = 30;
-    // use shift and mask
-    // uint16_t tempMsgNum = (msgNum & 0x1F) << 5;
-    // uint16_t tempWordCount = wordCount & 0x1F;
-    uint16_t tempBits = (remoteAdd << 11) | rOrT << 10 | (msgNum & 0x1F) << 5 | wordCount & 0x1F;
-    msg[0] = tempBits >> 8;
-    msg[1] = tempBits & 0xFF;
-    // command word should be msg[1] and msg[2] since each index contains 8 bits
-    msgInshort[0] = tempBits; // 59454 for 29,0, 1, 30
-    uint16_t revBits = (wordCount << 11) | msgNum << 6 | rOrT << 5 | remoteAdd & 0x1F;
-    // test union
-    bitsetConverter converter;
-    Bitstruct bitTemp;
-    bitTemp.remoteAddress = 29;
-    bitTemp.rOrT = 0;
-    bitTemp.subAddress = 1;
-    bitTemp.wordCount = 30;
-    converter.bitstruct = bitTemp;
-    std::cout << "bit int 16: " << converter.bitInt16 << std::endl; // shows up as 59454
-    // use the int to get bitstruct
-    bitsetConverter converterRev;
-    converterRev.bitInt16 = 61533;
-    std::cout << converterRev.bitstruct.subAddress << std::endl; // 29,0,1,30
-    // reverse the struct
-    revBitConverter revConv;
-    RevBitStruct revBitStruct;
-    revBitStruct.RevRemoteAddress = 29;
-    revBitStruct.RevROrT = 0;
-    revBitStruct.RevSubAddress = 1;
-    revBitStruct.RevWordCount = 30;
-    revConv.revBitStruct = revBitStruct;
-    std::cout << "gonna print the same as tempBits: " << revConv.revbitInt << std::endl;//still 59454
-    //test bit representation
-    std::string airplane="F-35A     ";
-    for(char c:airplane){
-        std::bitset<8> bitRep(c);
-        std::cout<<bitRep<<","<<std::endl;
-    };
-    TMsgs Tmsgs;
-    //Tmsgs.raw[]={0};
-    memset(Tmsgs.raw,0 , sizeof(Tmsgs));//cant use memset to initialize to other number, like 2
-    structInsideStruct tempStruct;
-    // tempStruct={
-    //     123,
-    //     {1234}
-    // };
-    //test checksum
     uint16_t TMsg[30][30] = {{0}, {0}};
     TMsg[0][0] = 1057;
     TMsg[0][1] = 0;
     TMsg[0][2] = 0;
     TMsg[0][3] = 16711;
-    TMsg[0][29] = 0;
+    TMsg[0][12] = 12345;
+    TMsg[0][29] = 100;
     uint16_t *TMsg1 = TMsg[0];
     uint16_t checksumRet = bitTesting.checksum(TMsg1, 30);
     std::copy(TMsg1, TMsg1 + 30, msgInshort + 1);
@@ -81,11 +47,45 @@ int main()
     // std::cout << "main finished!" << 12345 << std::endl;
     // std::cout << "addition result: " << result << std::endl;
 
-
     T1Msgs t1msg;
     T2Msgs t2msg;
-    //need to update msg based on input msg number
+    // t1msg.raw[0]=tempRaw;
+    std::copy(TMsg1, TMsg1 + 4, t1msg.raw);
+    std::cout << t1msg.raw[2] << std::endl;
 
+    std::vector<uint16_t *> testVectorArrPtr;
+    testVectorArrPtr.push_back(t1msg.raw);
+    testVectorArrPtr.push_back(t2msg.raw);
+    int i = 1;
+    for (uint16_t *ptr : testVectorArrPtr)
+    {
+        std::copy(ptr, ptr + 5, TMsg[i]);
+        i++;
+    };
+
+    // enum UAIMsgWordCount
+    // {
+    //     T1 = 30,
+    //     T2 = 30
+    // };
+    // char input = 'T1';
+    // enum UAIMsgWordCount testWordCount = static_cast<UAIMsgWordCount>(input);
+    // std::cout << testWordCount << std::endl;
+    // uint16_t msgWithCommandWord[31] = {0};
+    // msgWithCommandWord[0] = tempBits;
+    // std::copy(TMsg1, TMsg1 + 30, msgWithCommandWord + 1);
+
+    // testing bit shift to create double and sign change
+    rMsgs msg1;
+    rMsgs msgNegative;
+    msg1.velocityMSB = 1200;
+    msgNegative.velocityMSB = -1200;
+    double combineV = (msg1.velocityMSB << 16) + (msg1.velocityLSB);
+    int32_t combineVelocityInt32 = (msg1.velocityMSB << 16) + (msg1.velocityLSB);
+    uint32_t combineVN = (msgNegative.velocityMSB << 16) + (msgNegative.velocityLSB);
+    int32_t combineVelocityNInt32 = (msgNegative.velocityMSB << 16) + (msgNegative.velocityLSB);
+    bool sameOr = (combineVelocityNInt32 == (int32_t)(combineVN));
+    std::cout << ((combineVelocityNInt32 == (int32_t)(combineVN)) ? "same" : "no") << std::endl;
 
     return 0;
 }
