@@ -19,6 +19,7 @@ void msgCreateAndShift()
     msg[1] = tempBits & 0xFF;
     // command word should be msg[1] and msg[2] since each index contains 8 bits
     msgInshort[0] = tempBits; // 59454 for 29,0, 1, 30
+    //word count has 5 bits so only shift to left 11 bits, just think of padding 11 zero to the right
     uint16_t revBits = (wordCount << 11) | msgNum << 6 | rOrT << 5 | remoteAdd & 0x1F;
     // test union
     bitsetConverter converter;

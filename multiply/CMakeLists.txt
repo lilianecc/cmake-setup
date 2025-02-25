@@ -13,7 +13,7 @@ include_directories(src ${GTEST_INCLUDE_DIRECTORIES})
 
 message(STATUS "====MULTIPLY build")
 
-add_library(multiplyLib multiply.cpp multiply.h)
+add_library(multiplyLib SHARED multiply.cpp multiply.h ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(additionLib addition.cpp addition.h)
 add_library(mainFunction main.cpp)
 add_library(arhlib arh.cpp arh.h)
@@ -23,7 +23,7 @@ target_include_directories(additionLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 message(STATUS "===== ${CMAKE_CURRENT_SOURCE_DIR} =====")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 set(SOURCE ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
-
+list(APPEND SOURCE chronoTest.h chronoTest.cpp)
 add_executable(multiplyProject ${SOURCE})
 
 
