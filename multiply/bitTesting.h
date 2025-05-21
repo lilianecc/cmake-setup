@@ -2,6 +2,7 @@
 #define BITTESTING_H
 #include <iostream>
 #include "multiply.h"
+#include "arh.h"
 class BitTesting
 {
 public:
@@ -10,9 +11,22 @@ public:
     void DPRAMTest();
     uint16_t *PickMsg(uint16_t msgNum);
     int getXValueFromBitTesting();
+    void funCallBack();
+    void setmultiplystaticlocal(int input);
+    int getlocalValueinBitTesting();
+    void thisFunctionShowBracketDiff();
+    void testStructArrInput(Multiply::Person *input);
+    static int bitTestingStaticValue;
+    int referenceVarInMultiply;
+    unsigned char reverseAllBits(uint8_t byteIn);
+    
 
 private:
+    std::shared_ptr<ARH> testSharedPtr;
+
     char *dpramBytes = nullptr;
+    int bitTestinglocalVal = 3;
+    int localValueinBitTesting;
     int bitTestingAccessMultiplyX;
     enum
     {

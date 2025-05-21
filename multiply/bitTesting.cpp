@@ -4,13 +4,53 @@
 #include <cstring>
 // testing DPRAM stuff
 Multiply multiplyClass;
-
+int bitTestingStaticValue = 10;
 BitTesting::BitTesting()
 {
-    //bitTestingAccessMultiplyX = multiplycas.getXValue();
+    // bitTestingAccessMultiplyX = multiplycas.getXValue();
+    referenceVarInMultiply = multiplyClass.varForBitTesting;
+    multiplyClass.varForBitTesting = 777;
+    testSharedPtr = std::make_shared<ARH>();
+   
 }
-
-int BitTesting::getXValueFromBitTesting() { return bitTestingAccessMultiplyX; };
+void BitTesting::testStructArrInput(Multiply::Person *input)
+{
+    input[0].id = 123;
+};
+void funCallBack() { std::cout << "fun call back" << std::endl; };
+unsigned char BitTesting::reverseAllBits(uint8_t byteIn)
+{
+    byteIn = (byteIn & 0xF0) >> 4 | (byteIn & 0x0F) << 4;
+    byteIn = (byteIn & 0xCC) >> 2 | (byteIn & 0x33) << 2;
+    byteIn = (byteIn & 0xAA) >> 1 | (byteIn & 0x55) << 1;
+    return byteIn;
+};
+int BitTesting::getXValueFromBitTesting()
+{
+    multiplyClass.testSharedPtrFunc(testSharedPtr, testSharedPtr);
+    uint16_t subA = testSharedPtr->data;
+    uint16_t subB = testSharedPtr->data2;
+    std::cout << "construction end" << std::endl;
+    // multiplyClass.setLocalyWithCallBack(1111, &funCallBack, bitTestinglocalVal);
+    bitTestingAccessMultiplyX = multiplyClass.message13R001.raw[0];
+    return bitTestingAccessMultiplyX;
+};
+int BitTesting::getlocalValueinBitTesting() { return localValueinBitTesting; };
+void BitTesting::setmultiplystaticlocal(int input)
+{
+    // multiplyClass.setLocalXValue(input);
+    Multiply::localX = input;
+    localValueinBitTesting = multiplyClass.localX;
+};
+void BitTesting::thisFunctionShowBracketDiff()
+{
+    uint16_t msg1R28 = 0x0A01;                                                                                      // 2561
+    uint16_t aftersawp = (msg1R28 & 0x8000 >> 15) | (msg1R28 & 0x7000 >> 11) | (msg1R28 & 0x0FFF << 4);             // 2561
+    uint16_t swapwithmiddleBracket = (msg1R28 & 0x8000) >> 15 | (msg1R28 & 0x7000) >> 11 | (msg1R28 & 0x0FFF) << 4; // 40976
+    uint16_t swapNoBracket = msg1R28 & 0x8000 >> 15 | msg1R28 & 0x7000 >> 11 | msg1R28 & 0x0FFF << 4;               // 2561
+    uint16_t thirdpart = (msg1R28 & 0x0FFF) << 4;
+    // we can see that middlebracket is the correct one
+};
 void BitTesting::DPRAMTest()
 {
     int DPRAM_SIZE = (DPRAM_OFFSET + 1) * 4; // 1048576
@@ -29,8 +69,10 @@ void BitTesting::DPRAMTest()
     std::cout << test << std::endl;
     std::cout << "here" << std::endl;
 }
-uint16_t *BitTesting::PickMsg(uint16_t msgNum) {
-
+uint16_t *BitTesting::PickMsg(uint16_t msgNum)
+{
+    uint16_t *tempMsg;
+    return tempMsg;
 };
 uint16_t BitTesting::checksum(const uint16_t *msg, const size_t length)
 {

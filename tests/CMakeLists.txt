@@ -24,15 +24,17 @@ target_link_libraries(addition_test
   additionLib
 )
 add_test(addition_gtests addition_test)
-
+message(STATUS "====MULTIPLY test!!")
 ##### related to the target folder#####
 add_executable(multiply_test multiply_test.cpp)
 target_link_libraries(multiply_test
   GTest::GTest
   multiplyLib
 )
+include(CTest)
+
 add_test(multiply_gtests multiply_test --gtest_color=yes)
-set(gtest_color "yes")
+# set(gtest_color "yes")
 # to execute>> ctest -V
 # On Linux I can produce color googletest output with CTest, like this:
 # GTEST_COLOR=1 ctest -V

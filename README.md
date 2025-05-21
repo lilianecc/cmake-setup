@@ -5,7 +5,8 @@ Overall it will be run by a CMakeLists.txt outside in the CMAKE-SETUP folder<br>
 
 **To run this in Command line** <br>
 `cmake -S . -B build/` <br>
-`cmake --build build/` <br>
+`cmake --build build/ --parallel` <br> (without parallel will just use 1 core)
+`cmake -S . -B build -DBUILD_UNITTESTInWindows=ON` <br>
 
 **To run this in VSCode**
 There is 3 vscode tests currently

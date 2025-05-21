@@ -6,6 +6,7 @@ class MultiplyTests : public ::testing::Test
 public:
     Multiply obj;
     Multiply obj2;
+
 };
 // test internal member value
 TEST_F(MultiplyTests, testone)
@@ -13,7 +14,7 @@ TEST_F(MultiplyTests, testone)
     const auto expected = 6;
     // const auto actual = 1;
     obj.multiplier(2, 3);
-
+    obj.setLocalXValue(123);
     int temp = obj.result;
     ASSERT_EQ(expected, temp);
     std::cout << "test complete: " << temp << std::endl;
@@ -37,5 +38,5 @@ TEST_F(MultiplyTests, PrivateVarTest)
     int result = obj.localX;
     // EXPECT_CALL(testPtr, 1);
     EXPECT_EQ(result, 2);
-    EXPECT_EQ(1057,0x421);
+    EXPECT_EQ(1057, 0x421);
 }

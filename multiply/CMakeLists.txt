@@ -13,11 +13,11 @@ include_directories(src ${GTEST_INCLUDE_DIRECTORIES})
 
 message(STATUS "====MULTIPLY build")
 
-add_library(multiplyLib SHARED multiply.cpp multiply.h ${CMAKE_CURRENT_SOURCE_DIR})
+add_library(multiplyLib multiply.cpp multiply.h ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(additionLib addition.cpp addition.h)
 add_library(mainFunction main.cpp)
 add_library(arhlib arh.cpp arh.h)
-
+add_library(BitTestingLib bitTesting.cpp bitTesting.h ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(multiplyLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(additionLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 message(STATUS "===== ${CMAKE_CURRENT_SOURCE_DIR} =====")
@@ -31,5 +31,6 @@ target_link_libraries(multiplyProject
   #GTest::gtest_main #this works
   multiplyLib
   additionLib
+  BitTestingLib
   #   ${CMAKE_CURRENT_SOURCE_DIR}/build/Debug/multiply.lib
 )

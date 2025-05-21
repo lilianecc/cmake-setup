@@ -1,3 +1,9 @@
 #include "arh.h"
-#include "multiply.h"
-// Multiply temp;
+#include <iostream>
+
+ARH::ARH() {};
+ARH::~ARH() {};
+void ARH::printValue()
+{
+    std::cout << "Value: " << data << std::endl;
+};
