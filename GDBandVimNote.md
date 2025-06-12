@@ -1,9 +1,13 @@
 # gdb note
+`gdb ./MSG1553Test`: to run the file in gdb mode \
 `break` : nameOfFile.cpp:35 \
 `C` : Continue like F5 in VSCode \
-`S` : Step \
-`l` : block of code\
+`S` : Step \ like F10 or F11
+`l` : display block of code u are on now\
+`n` : next line\
 `f` : show line we are on\
+`bt` : back trace on your last executed line of code \ 
+`info debug`: show what your debug lines are \
 `info break` : To display a list of currently set breakpoints\
 `del line_number` : delete the breakpoint\
 `clear line_number` : delete the breakpoint\

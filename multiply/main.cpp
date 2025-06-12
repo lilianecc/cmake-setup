@@ -23,7 +23,8 @@ void bar()
 // int (*func_ptr)(char)=&foo;
 int main()
 {
-
+    std::unique_ptr<int[]> myArray(new int[5]);
+    myArray.get()[0] = 1;//this is how u get the value of a unique pointer
     BitTesting bitTesting; // check varForBitTesting value
     configurationIDUnion ConfigUnion;
     ConfigUnion.raw = 0xA01;
@@ -32,7 +33,7 @@ int main()
     storetest.halfhalf.char1 = 0x55;
     storetest.halfhalf.char2 = 0x53;
     halfhalfUnion storetestRaw;
-    storetestRaw.raw = ((storetest.raw & 0xFF00) >> 8)|((storetest.raw & 0x00FF) <<8);
+    storetestRaw.raw = ((storetest.raw & 0xFF00) >> 8) | ((storetest.raw & 0x00FF) << 8);
     Multiply testClass;
     uint16_t blcok = testClass.mapWithStruct[5].block;
     testClass.throwawayArea();
